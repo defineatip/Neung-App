@@ -11,7 +11,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText nameEditText,surnameEditText,userEditText, passwordEditText;
     private ImageView imageView;
     private String nameString,surnameString,userString,passwordString, imageString;
-
+    private boolean aBoolean = true;
 
 
     @Override
@@ -41,6 +41,14 @@ public class SignUpActivity extends AppCompatActivity {
             //Have Space
             MyAlert myAlert = new MyAlert(this, "มีช่องว่าง", "กรุณากรอกทุกช่อง ด้วยครับ");
             myAlert.myDialog();
+        } else if (aBoolean) {
+            //Non choose image
+            MyAlert myAlert = new MyAlert(this,"ยังไม่ได้เลือกรูป",
+                    "กรุณาคลิกที่รูปภาพ เพื่อเลือกรูป");
+            myAlert.myDialog();
+
+        } else {
+            //Chonose image Finish
         }
 
     }// clickSignUpsign
