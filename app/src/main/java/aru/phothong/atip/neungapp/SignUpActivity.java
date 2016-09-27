@@ -1,6 +1,9 @@
 package aru.phothong.atip.neungapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +53,19 @@ public class SignUpActivity extends AppCompatActivity {
         if ((requestCode==0)&&(resultCode==RESULT_OK)) {
 
             aBoolean = false;
+
+            //Show CHoose Image on ImageView
+            Uri uri = data.getData();
+            try {
+                Bitmap bitmap = BitmapFactory
+                        .decodeStream(getContentResolver()
+                                .openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
 
         }//if
 
