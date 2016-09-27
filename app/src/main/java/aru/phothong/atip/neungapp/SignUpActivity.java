@@ -1,11 +1,14 @@
 package aru.phothong.atip.neungapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,7 +17,8 @@ public class SignUpActivity extends AppCompatActivity {
     //Explicit
     private EditText nameEditText,surnameEditText,userEditText, passwordEditText;
     private ImageView imageView;
-    private String nameString,surnameString,userString,passwordString, imageString;
+    private String nameString,surnameString,userString,
+            passwordString, imageString,imagePathString,getImageString;
     private boolean aBoolean = true;
 
 
@@ -65,11 +69,30 @@ public class SignUpActivity extends AppCompatActivity {
                 e.printStackTrace();
 
             }
-
-
+            // Find Path and Name of Image Choosed
+            imagePathString = myFindPath(uri);
+            Log.d("NeungV1", "imagePathString==>" + imagePathString);
         }//if
 
     }//onActivityResult
+
+    private String myFindPath(Uri uri) {
+        String strResulte = null;
+
+        String[] strings = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri,strings,
+                null,null,null);
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            strResulte = cursor.getString(index);
+        } else {
+            strResulte = uri.getPath();
+        }
+
+        return strResulte;
+    }
 
     public void clicksignUpsign(View view) {
         //get Value From Edit Text
@@ -92,6 +115,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         } else {
             //Chonose image Finish
+
+
+
         }
 
     }// clickSignUpsign
